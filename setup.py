@@ -5,55 +5,13 @@ import sys
 
 from setuptools import Command, find_packages, setup
 
-if sys.version_info[:2] < (2, 6):
-    sys.exit('virtualenv requires Python 2.6 or higher.')
-
-try:
-    from setuptools import setup
-    from setuptools.command.test import test as TestCommand
-
-    class PyTest(TestCommand):
-        user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
-
-        def initialize_options(self):
-            TestCommand.initialize_options(self)
-            self.pytest_args = []
-
-        def finalize_options(self):
-            TestCommand.finalize_options(self)
-            #self.test_args = []
-            #self.test_suite = True
-
-        def run_tests(self):
-            # import here, because outside the eggs aren't loaded
-            import pytest
-            sys.exit(pytest.main(self.pytest_args))
-
-    setup_params = {
-        'entry_points': {
-            'console_scripts': ['dokku_tools=dokku_tools:main'],
-        },
-        'zip_safe': False,
-        'cmdclass': {'test': PyTest},
-        'tests_require': ['pytest', 'mock'],
-    }
-except ImportError:
-    from distutils.core import setup
-    if sys.platform == 'win32':
-        print('Note: without Setuptools installed you will '
-              'have to use "python -m virtualenv ENV"')
-        setup_params = {}
-    else:
-        script = 'scripts/deploy'
-        setup_params = {'scripts': [script]}
-
 def read_file(*paths):
     here = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(here, *paths)) as f:
         return f.read()
 
 def get_version():
-    version_file = read_file('dokku_tools.py')
+    version_file = read_file('dokku_utils.py')
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
                               version_file, re.M)
     if version_match:
@@ -65,35 +23,30 @@ long_description = read_file('docs', 'index.rst')
 long_description = long_description.strip().split('split here', 1)[0]
 
 setup(
-    name='dokku_tools',
+    name='dokku_utils',
     version=get_version(),
     description="Virtual Python Environment builder",
     long_description=long_description,
     include_package_data=True,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
     ],
     keywords='setuptools deployment installation distutils',
     author='Nielson Santana',
     author_email='nielsonnas@gmail.com',
     maintainer='',
-    # maintainer_email='python-virtualenv@groups.google.com',
-    # url='https://virtualenv.pypa.io/',
     license='MIT',
-    py_modules=['dokku_tools'],
-    packages='',
-    data_files=[('', ['dokku_fabfile.py'])],
+    py_modules=['dokku_utils'],
+    packages=['dokku_utils'],
     install_requires=[
         'fabric>=1.10.2',
         'python-decouple>=3.0',
     ],
-    **setup_params)
+    entry_points={
+        'console_scripts': ['dokkutils=dokku_utils:main'],
+    },
+    zip_safe=False,
+)

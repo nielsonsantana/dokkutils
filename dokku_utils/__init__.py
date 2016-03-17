@@ -1,6 +1,7 @@
 __version__ = "0.1.0.dev0"
 virtualenv_version = __version__  # legacy
 
+import os
 import sys
 from fabric.tasks import execute
 from fabric import main as main_fabric
@@ -9,9 +10,15 @@ from optparse import Option
 
 # Adding default dokku_fabfile to no conflit with user created fabfile
 sys.argv.append('--fabfile')
-sys.argv.append('dokku_fabfile.py')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.argv.append(os.path.join(dir_path, 'dokku_fabfile.py'))
 
-def main(args=[]):
+# The default is show all dokkutils commands availables
+# sys.argv.append("--list")
+
+def main():
+    # if sys.argv[-1] != "--list":
+    #     sys.argv.remove("--list")
     main_fabric.main()
 
 if __name__ == "__main__":
