@@ -44,6 +44,7 @@ setup(
     install_requires=[
         'fabric>=1.10.2',
         'python-decouple>=3.0',
+        'fabtools>=0.19.0',
     ],
     entry_points={
         'console_scripts': ['dokkutils=dokku_utils:main'],
