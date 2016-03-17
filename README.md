@@ -10,7 +10,8 @@ Instalation
 
 install global
 
-pip install -e git://github.com/nielsonsantana/dokkutils.git#egg=dokkutils
+    pip install -e git://github.com/nielsonsantana/dokkutils.git#egg=dokkutils
 
 Add autocomplete plugin to your bash:
-sudo wget https://github.com/nielsonsantana/dokkutils/blob/master/scripts/dokkutils  /etc/bash_completion.d/dokkutils
+
+    sudo wget https://github.com/nielsonsantana/dokkutils/blob/master/scripts/dokkutils  /etc/bash_completion.d/dokkutils
