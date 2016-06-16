@@ -23,7 +23,7 @@ long_description = read_file('docs', 'index.rst')
 long_description = long_description.strip().split('split here', 1)[0]
 
 setup(
-    name='dokku_utils',
+    name='dokkutils',
     version=get_version(),
     description="Virtual Python Environment builder",
     long_description=long_description,
@@ -45,6 +45,7 @@ setup(
         'fabric>=1.10.2',
         'python-decouple>=3.0',
         'fabtools>=0.19.0',
+        'pyyaml>=3.11',
     ],
     entry_points={
         'console_scripts': ['dokkutils=dokku_utils:main'],

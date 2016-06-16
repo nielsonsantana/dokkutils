@@ -8,7 +8,7 @@ def enviroment_keys(enviroment):
     str_env_map = ''
     str_env_keys = ''
     for line in env_file.readlines():
-        line = line.replace('\n','')
+        line = line.replace('\n','').strip()
         if line and not line.startswith("#"):
             k,v = line.split('=', 1)
             str_env_map += ' %s="%s" ' % (k, v)

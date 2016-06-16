@@ -1,0 +1,1 @@
+recursive-include dokku_utils/scripts *.sh
