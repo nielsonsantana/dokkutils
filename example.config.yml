@@ -1,0 +1,7 @@
+enviroments:
+  staging_test:
+    user: root
+    host:
+      - "IP eg: 18.22.11.112"
+    application_name: "Dokku Project name eg: dokku-staging"
+    enviroment_vaiables_file: "PATH eg: /home/ubuntu/staging_env.env"

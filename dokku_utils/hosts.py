@@ -17,10 +17,10 @@ def base_environment(environment=""):
     application_name = config(environment + "_APPLICATION_NAME", '') or \
         config("APPLICATION_NAME", '')
 
-    _env.host = config(environment + "_SERVER_HOST")
+    _env.host = config(environment + "_SERVER_HOST", '')
     _env.user = config(environment + "_OS_USER", 'root')
-    _env.environment_variables = config(environment + "_ENVIRONMENT_VARIABLES",
-                                        "env-config/production_env.env")
+    _env.environment_variables = config(
+        environment + '_ENVIRONMENT_VARIABLES', '')
     _env.dokku_command = "ssh dokku@" + \
         config(environment + "_SERVER_HOST", '')
     _env.app_name_dokku = application_name
@@ -62,21 +62,3 @@ def new_environment_wrapper(environment="", **kwargs):
                     kwargs=kwargs)(func)
 
     return wrapper(environment, **kwargs)
-
-
-@task
-def production():
-    """Staging config for deployment"""
-    base_environment("production")
-
-
-@task
-def staging():
-    """staging config for deployment"""
-    base_environment("staging")
-
-
-@task
-def local():
-    """local config for deployment"""
-    base_environment("local")

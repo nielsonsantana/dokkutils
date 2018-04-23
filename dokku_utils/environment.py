@@ -8,9 +8,12 @@ from fabric.api import task
 from settings import config
 
 
-def enviroment_keys(enviroment):
+def environment_keys(environment):
     """"""
-    env_file = open(enviroment, 'r')
+    if not environment:
+        return '', ''
+
+    env_file = open(environment, 'r')
     str_env_map = ''
     str_env_keys = ''
     for line in env_file.readlines():
@@ -31,7 +34,7 @@ def update_envs(args=""):
         * fab staging update_envs_dokku
 
     """
-    envs_map = enviroment_keys(_env.environment_variables)[1]
+    envs_map = environment_keys(_env.environment_variables)[1]
     if envs_map:
         _local(_env.dokku_command + " config:set %s %s %s " %
                (_env.app_name_dokku, envs_map, args))
@@ -40,7 +43,7 @@ def update_envs(args=""):
 @task
 def delete_envs(args=""):
     """ Unset all environment variables on dokku"""
-    envs_keys = enviroment_keys(_env.environment_variables)[0]
+    envs_keys = environment_keys(_env.environment_variables)[0]
     if envs_keys:
         _local(_env.dokku_command + " config:unset %s %s " %
                (_env.app_name_dokku, envs_keys))

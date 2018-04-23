@@ -68,7 +68,6 @@ def load_ymal_config():
         return
 
     for k, v in yMap.get("enviroments", {}).iteritems():
-        # print(k, **v)
         new_task = target.new_environment_wrapper(k, **v)
         new_task.__doc__ = " %s host" % k
         setattr(target, k, new_task)

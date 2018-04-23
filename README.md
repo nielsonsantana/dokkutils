@@ -15,3 +15,4 @@ install global
 Add autocomplete plugin to your bash:
 
     sudo wget https://github.com/nielsonsantana/dokkutils/blob/master/scripts/dokkutils  /etc/bash_completion.d/dokkutils
+
