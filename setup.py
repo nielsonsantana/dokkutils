@@ -1,14 +1,14 @@
 import os
 import re
-import shutil
-import sys
 
-from setuptools import Command, find_packages, setup
+from setuptools import setup
+
 
 def read_file(*paths):
     here = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(here, *paths)) as f:
         return f.read()
+
 
 def get_version():
     version_file = read_file('dokku_utils.py')
@@ -42,7 +42,7 @@ setup(
     py_modules=['dokku_utils'],
     packages=['dokku_utils'],
     install_requires=[
-        'fabric>=1.10.2',
+        'fabric==1.10.2',
         'python-decouple>=3.0',
         'fabtools>=0.19.0',
         'pyyaml>=3.11',
